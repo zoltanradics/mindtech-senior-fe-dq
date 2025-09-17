@@ -1,11 +1,12 @@
 import './App.css'
 
-import { UserListContainer } from './Features/UserList';
+import UserListContainer from './Features/UserList/UserListContainer';
+import { UserListProvider } from './Features/UserList/UserListContext';
 
-function App() {  
+export default function App() {  
   return (
-    <UserListContainer />
+    <UserListProvider>
+      <UserListContainer />
+    </UserListProvider>
   )
 }
-
-export default App
