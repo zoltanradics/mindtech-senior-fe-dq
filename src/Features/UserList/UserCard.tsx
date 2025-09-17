@@ -10,7 +10,7 @@ import {
 import type { UserDto } from './User'
 
 interface UserCardProps {
-  user: UserDto
+  user: UserDto | null
   hideModal: () => void
 }
 
