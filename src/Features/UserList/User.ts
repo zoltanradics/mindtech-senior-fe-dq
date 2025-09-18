@@ -1,9 +1,10 @@
 
 export type User = {
-  name: string;
-  email: string;
-  username: string;
-  company: string;
+  id: number
+  name: string
+  email: string
+  username: string
+  company: string
 }
 
 export type UserDto = {

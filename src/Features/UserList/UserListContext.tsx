@@ -49,6 +49,7 @@ export function UserListProvider({ children }: { children: React.ReactNode }) {
 
   const getUsers = useCallback((): User[] => {
     return users.map((user) => ({
+      id: user.id,
       name: user.name,
       email: user.email,
       username: user.username,
@@ -56,7 +57,11 @@ export function UserListProvider({ children }: { children: React.ReactNode }) {
     }))
   }, [users])
 
-  const getUser = useCallback((index: number): UserDto => users[index], [users])
+  const getUser = useCallback(
+    (id: number): UserDto | undefined =>
+      users.find((user) => Number(user.id) === id),
+    [users]
+  )
 
   useEffect(() => {
     fetchUsers()

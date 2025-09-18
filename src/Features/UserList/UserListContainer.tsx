@@ -46,12 +46,12 @@ const UserListContainer = () => {
       isLoading: loading,
     },
     muiTableBodyRowProps: ({ row }) => ({
-      onClick: () => showModal(row.id),
+      onClick: () => showModal(row.original.id),
       sx: { cursor: 'pointer' },
     }),
   })
 
-  function showModal(rowId: string): void {
+  function showModal(rowId: number): void {
     const index = Number(rowId)
     const selectedUser = getUser(index)
 
