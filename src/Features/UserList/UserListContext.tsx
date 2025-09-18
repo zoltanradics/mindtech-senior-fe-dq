@@ -36,6 +36,7 @@ export function UserListProvider({ children }: { children: React.ReactNode }) {
 
         setUsers(userData)
       } else {
+        setError(true)
         throw new Error(`HTTP ${response.status}`)
       }
     } catch (error: unknown) {

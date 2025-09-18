@@ -16,7 +16,6 @@ import UserCard from './UserCard'
 const UserListContainer = () => {
   const [selectedUser, setSelectedUser] = useState<UserDto | null>(null)
   const { loading, error, getUsers, getUser, fetchUsers } = useUserList()
-
   const columns = useMemo<MRT_ColumnDef<User>[]>(() => userListTableConfig, [])
   const data = useMemo(() => getUsers(), [getUsers])
 
@@ -26,9 +25,10 @@ const UserListContainer = () => {
     enableFullScreenToggle: false,
     enableDensityToggle: false,
     manualPagination: false,
-    muiToolbarAlertBannerProps: error
-      ? { color: 'error', children: 'Error loading data' }
-      : undefined,
+    muiToolbarAlertBannerProps: {
+      color: 'error',
+      children: 'Error loading data',
+    },
     renderTopToolbarCustomActions: error
       ? () => (
           <Tooltip arrow title="Refresh Data">
@@ -44,6 +44,7 @@ const UserListContainer = () => {
       : () => null,
     state: {
       isLoading: loading,
+      showAlertBanner: error,
     },
     muiTableBodyRowProps: ({ row }) => ({
       onClick: () => showModal(row.original.id),
