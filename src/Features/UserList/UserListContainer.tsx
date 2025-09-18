@@ -18,7 +18,7 @@ const UserListContainer = () => {
   const { loading, error, getUsers, getUser, fetchUsers } = useUserList()
 
   const columns = useMemo<MRT_ColumnDef<User>[]>(() => userListTableConfig, [])
-  const data = getUsers()
+  const data = useMemo(() => getUsers(), [getUsers])
 
   const table = useMaterialReactTable({
     data,
