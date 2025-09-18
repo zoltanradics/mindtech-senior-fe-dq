@@ -7,13 +7,13 @@ Repository: https://github.com/zoltanradics/mindtech-senior-fe-dq
 #### How to install
 ```
 # Clone repository
-git clone git@github.com:zoltanradics/mindtech-senior-fe-dq.git
+$ git clone git@github.com:zoltanradics/mindtech-senior-fe-dq.git
 
 # You can run npm install, but to install locked dependencies, npm ci is enough
-npm ci 
+$ npm ci 
 
 # Serve the project on your machine
-npm run dev
+$ npm run dev
 
 ```
 
