@@ -1,70 +1,91 @@
-import { createContext, useContext, useEffect, useState } from "react";
+import {
+  createContext,
+  useCallback,
+  useContext,
+  useEffect,
+  useMemo,
+  useState,
+} from 'react'
 
-import type { User, UserDto } from "./User";
+import type { User, UserDto } from './User'
 
-// Define type for UserListContext
 interface UserListContextInterface {
-  users: UserDto[];
-  loading: boolean;
-  error: boolean;
-  getUsers: () => User[];
-  fetchUsers: () => Promise<void>;
-};
+  loading: boolean
+  error: boolean
+  getUsers: () => User[]
+  getUser: (index: number) => UserDto
+  fetchUsers: () => Promise<void>
+}
 
-// Create the context
-const UserListContext = createContext<UserListContextInterface | null>(null);
+const UserListContext = createContext<UserListContextInterface | null>(null)
 
-// Define a provider to handle fetching users
 export function UserListProvider({ children }: { children: React.ReactNode }) {
-  const [users, setUsers] = useState<UserDto[]>([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<boolean>(false);
-  
-  async function fetchUsers() {    
-    setLoading(true);
-    setError(false);
+  const [users, setUsers] = useState<UserDto[]>([])
+  const [loading, setLoading] = useState(false)
+  const [error, setError] = useState<boolean>(false)
+
+  const fetchUsers = useCallback(async () => {
+    setLoading(true)
+    setError(false)
 
     try {
-      const response = await fetch('https://jsonplaceholder.typicode.com/users');
+      const response = await fetch('https://jsonplaceholder.typicode.com/users')
 
       if (response.ok) {
-        const userData: UserDto[] = await response.json();
-        setUsers(userData);
+        const userData: UserDto[] = await response.json()
+
+        setUsers(userData)
       } else {
-        throw new Error(`HTTP ${response.status}`);
+        throw new Error(`HTTP ${response.status}`)
       }
     } catch (error: unknown) {
-      setError(true);
+      setError(true)
 
-      console.error(error);
+      console.error(error)
     } finally {
-      setLoading(false);
+      setLoading(false)
     }
-  }
+  }, [])
 
-  useEffect(() => { 
-     fetchUsers();
-  }, []);
-
-  function getUsers(): User[] {
-    return users.map(user => ({
+  const getUsers = useCallback((): User[] => {
+    return users.map((user) => ({
       name: user.name,
       email: user.email,
       username: user.username,
-      company: user.company.name
-    }));
-  }
+      company: user.company.name,
+    }))
+  }, [users])
 
-  return (<UserListContext.Provider value={{ users, loading, error, getUsers, fetchUsers }}>{children}</UserListContext.Provider>)
+  const getUser = useCallback((index: number): UserDto => users[index], [users])
+
+  useEffect(() => {
+    fetchUsers()
+  }, [fetchUsers])
+
+  const vvalue = useMemo(
+    () => ({
+      loading,
+      error,
+      getUsers,
+      getUser,
+      fetchUsers,
+    }),
+    [loading, error, getUsers, getUser, fetchUsers]
+  )
+
+  return (
+    <UserListContext.Provider value={vvalue}>
+      {children}
+    </UserListContext.Provider>
+  )
 }
 
-// Export custom context
 export function useUserList() {
-  const ctx = useContext(UserListContext);
+  const ctx = useContext(UserListContext)
 
   if (!ctx) {
-    throw new Error("useUser must be used within <UserListProvider>");
+    throw new Error('useUser must be used within <UserListProvider>')
   }
 
-  return ctx;
+  return ctx
 }
