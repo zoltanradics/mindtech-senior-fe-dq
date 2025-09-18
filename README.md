@@ -1,69 +1,33 @@
-# React + TypeScript + Vite
+#### Basic information
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+The project was bootstrapped with React + TypeScript + Vite template.
 
-Currently, two official plugins are available:
+Repository: https://github.com/zoltanradics/mindtech-senior-fe-dq
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+#### How to install
+```
+# Clone repository
+git clone git@github.com:zoltanradics/mindtech-senior-fe-dq.git
 
-## Expanding the ESLint configuration
+# You can run npm install, but to install locked dependencies, npm ci is enough
+npm ci 
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+# Serve the project on your machine
+npm run dev
 
-```js
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      ...tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      ...tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      ...tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+#### Developer checklist (I was going through these items on the requirement list)
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+- [x] Initialize a new React project with TypeScript template.
+- [x] Set up a folder structure that you would use in a production-ready application.
+- [x] Use this API endpoints to fetch the required data from:
+- [x] Fetch user data from the API.
+- [x] Display the list of users using Material react table
+- [x] Show the following user fields (name, email, username, Company name)
+- [x] Add a search input to filter users by name or email (case-insensitive).
+(@zoltanradics Provided by Material react table by default)
+-  [x] Display loading and error states with appropriate UI. (@zoltanradics Provided by Material react table config)
+- [x] Create a UserContext using React's Context API to:
+- [x] Clicking a user opens a modal (Material UI) showing more details: (name, username, email, phone, website, company.name, and
+address.city)
