@@ -37,7 +37,7 @@ const UserListContainer = () => {
               variant="outlined"
               startIcon={<RefreshIcon />}
             >
-              Refetch
+              Retry
             </Button>
           </Tooltip>
         )
